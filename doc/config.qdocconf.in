@@ -1,0 +1,38 @@
+include("@CMAKE_SOURCE_DIR@/doc/global/qt-module-defaults.qdocconf")
+include("@CMAKE_SOURCE_DIR@/doc/global/externalsites.qdocconf")
+ 
+project                 = @PROJECT_NAME@
+description             = @PROJECT_NAME@ Reference Documentation
+version                 =  @PROJECT_VERSION@
+language = Cpp
+ 
+qhp.projects            = qtestclass
+ 
+qhp.qtestclass.file         = qtestclass.qhp
+qhp.qtestclass.namespace           = company.labs.qtestclass.
+qhp.qtestclass.virtualFolder       = qtestclass
+qhp.qtestclass.indexTitle          = qtestclass
+qhp.qtestclass.indexRoot           =
+ 
+qhp.qtestclass.filterAttributes    = qtestclass  qtrefdoc
+qhp.qtestclass.customFilters.Qt.name = qtestclass
+qhp.qtestclass.customFilters.Qt.filterAttributes = qtestclass
+ 
+ 
+ 
+outputdir  =    ./doc/
+ 
+headerdirs  = "@CMAKE_SOURCE_DIR@/src/guiExample2/"
+sourcedirs  = "@CMAKE_SOURCE_DIR@/src/guiExample2/"
+ 
+sources.fileextensions = "*.cpp *.qdoc *.mm *.qml"
+headers.fileextensions = "*.h *.ch *.h++ *.hh *.hpp *.hxx"
+ 
+navigation.landingpage = "qtestclass"
+navigation.qmltypespage = "qtestclass QML Type"
+ 
+#HTML.extraimages             += images/qt-codesample.png
+#qhp.QtDoc.extraFiles         += images/qt-codesample.png
+ 
+# Add an .html file with sidebar content, used in the online style
+#HTML.stylesheets             += style/qt5-sidebar.html

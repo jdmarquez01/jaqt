@@ -1,0 +1,10 @@
+Acknowledgements
+------------
+
+The following projects are taken by reference to generate this project template:
+
+ * Tano (https://github.com/ntadej/tano)
+ * CommonTK (https://github.com/commontk/CTK)
+ * VTK (https://github.com/Kitware/VTK)
+ * Charm (https://github.com/KDAB/Charm)
+ * Tango icon shceme

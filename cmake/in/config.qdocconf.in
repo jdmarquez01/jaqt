@@ -1,0 +1,38 @@
+include(@CMAKE_SOURCE_DIR@/doc/global/qt-module-defaults.qdocconf)
+include(@CMAKE_SOURCE_DIR@/doc/global/externalsites.qdocconf)
+include(@CMAKE_CURRENT_SOURCE_DIR@/Documentation/doc.qdocconf)
+
+project                 = @PROJECT_NAME@
+description             = @PROJECT_NAME@ Reference Documentation
+version                 =  @PROJECT_VERSION@
+language = Cpp
+ 
+qhp.projects            = @MY_BUILD_NAME@
+ 
+qhp.@MY_BUILD_NAME@.file         = @MY_BUILD_NAME@.qhp
+qhp.@MY_BUILD_NAME@.namespace           = @MY_BUILD_NAME@
+qhp.@MY_BUILD_NAME@.virtualFolder       = @MY_BUILD_NAME@
+#qhp.@MY_BUILD_NAME@.indexTitle          = @MY_BUILD_NAME@
+#qhp.@MY_BUILD_NAME@.indexRoot           =
+ 
+qhp.@MY_BUILD_NAME@.filterAttributes    = @MY_BUILD_NAME@  qtrefdoc
+qhp.@MY_BUILD_NAME@.customFilters.Qt.name = @MY_BUILD_NAME@
+qhp.@MY_BUILD_NAME@.customFilters.Qt.filterAttributes = @MY_BUILD_NAME@
+ 
+
+headerdirs  += @CMAKE_CURRENT_SOURCE_DIR@
+sourcedirs  += @CMAKE_CURRENT_SOURCE_DIR@
+
+tagfile = @MY_BUILD_NAME@.tag
+
+sources.fileextensions = "*.cpp *.qdoc *.mm *.qml"
+headers.fileextensions = "*.h *.ch *.h++ *.hh *.hpp *.hxx"
+ 
+navigation.landingpage = "@MY_BUILD_NAME@"
+
+ 
+HTML.extraimages             += images/qt-codesample.png
+qhp.QtDoc.extraFiles         += images/qt-codesample.png
+ 
+# Add an .html file with sidebar content, used in the online style
+HTML.stylesheets             += style/qt5-sidebar.html

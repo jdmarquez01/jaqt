@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/info">
+        <file>CHANGELOG</file>
+        <file>LICENSE</file>
+        <file>VERSION</file>
+        <file>CREDITS</file>
+        <file>README.md</file>
+        <file alias="logo16">data/logo/logo16.png</file>
+        <file alias="logo32">data/logo/logo32.png</file>
+		<file alias="logo64">data/logo/logo64.png</file>
+		<file alias="logo128">data/logo/logo128.png</file>
+    </qresource>
+</RCC>

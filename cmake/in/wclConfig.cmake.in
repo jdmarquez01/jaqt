@@ -1,0 +1,106 @@
+#-----------------------------------------------------------------------------
+#
+# VTKConfig.cmake - VTK CMake configuration file for external projects.
+#
+# This file is configured by VTK and used by the UseVTK.cmake module
+# to load VTK's settings for an external project.
+
+
+
+
+get_filename_component(@CMAKE_PROJECT_NAME@_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_FILE}" PATH)
+set(@CMAKE_PROJECT_NAME@_MODULE_DIR "${@CMAKE_PROJECT_NAME@_INSTALL_PREFIX}/Modules")
+
+message( "@CMAKE_PROJECT_NAME@_MODULE_DIR = ${@CMAKE_PROJECT_NAME@_MODULE_DIR}")
+
+include( ${@CMAKE_PROJECT_NAME@_INSTALL_PREFIX}/ModuleAPI.cmake)
+
+# The C and C++ flags added by VTK to the cmake-configured flags.
+# SET(VTK_REQUIRED_C_FLAGS "@VTK_REQUIRED_C_FLAGS@")
+# SET(VTK_REQUIRED_CXX_FLAGS "@VTK_REQUIRED_CXX_FLAGS@")
+# SET(VTK_REQUIRED_EXE_LINKER_FLAGS "@VTK_REQUIRED_EXE_LINKER_FLAGS@")
+# SET(VTK_REQUIRED_SHARED_LINKER_FLAGS "@VTK_REQUIRED_SHARED_LINKER_FLAGS@")
+# SET(VTK_REQUIRED_MODULE_LINKER_FLAGS "@VTK_REQUIRED_MODULE_LINKER_FLAGS@")
+# 
+# # The VTK version number
+# SET(VTK_MAJOR_VERSION "@VTK_MAJOR_VERSION@")
+# SET(VTK_MINOR_VERSION "@VTK_MINOR_VERSION@")
+# SET(VTK_BUILD_VERSION "@VTK_BUILD_VERSION@")
+
+# The location of the UseVTK.cmake file.
+
+SET(@CMAKE_PROJECT_NAME@_CMAKE_DIR "@VTK_CONFIG_CMAKE_DIR@")
+SET(@CMAKE_PROJECT_NAME@_USE_FILE "${@CMAKE_PROJECT_NAME@_CMAKE_DIR}/Use@CMAKE_PROJECT_NAME@.cmake")
+
+message( "@CMAKE_PROJECT_NAME@_CMAKE_DIR = ${@CMAKE_PROJECT_NAME@_CMAKE_DIR}")
+
+# The rendering backend VTK was configured to use.
+#set(VTK_RENDERING_BACKEND "@VTK_RENDERING_BACKEND@")
+
+#-----------------------------------------------------------------------------
+# Load requested modules.
+
+# List of available VTK modules.
+set(@CMAKE_PROJECT_NAME@_MODULES_ENABLED)
+
+
+
+# Determine list of available VTK-modules by scanning the VTK_MODULES_DIR.
+file(GLOB_RECURSE config_files RELATIVE ${@CMAKE_PROJECT_NAME@_MODULE_DIR} "${@CMAKE_PROJECT_NAME@_MODULE_DIR}/*Config.cmake")
+message( "config_files.. = ${config_files}")
+
+foreach (_file ${config_files})
+  if (NOT "${_file}" MATCHES "[^\\-]+-[a-zA-Z]+Config\\.cmake")
+    get_filename_component(_module2 ${_file} NAME)
+    string(REGEX REPLACE "Config\\.cmake$" "" _module "${_module2}")
+    list(APPEND @CMAKE_PROJECT_NAME@_MODULES_ENABLED "${_module}")
+  endif()
+endforeach()
+
+message( "@CMAKE_PROJECT_NAME@_MODULES_ENABLED = ${@CMAKE_PROJECT_NAME@_MODULES_ENABLED}")
+# Import VTK targets.
+set(VTK_CONFIG_TARGETS_FILE "@@CMAKE_PROJECT_NAME@_CONFIG_TARGETS_FILE@")
+if(NOT TARGET @@CMAKE_PROJECT_NAME@_CONFIG_TARGETS_FILE@)
+  include("${@CMAKE_PROJECT_NAME@_CONFIG_TARGETS_FILE}")
+endif()
+
+# Load module interface macros.
+#include("@VTK_CONFIG_MODULE_API_FILE@")
+
+# Compute set of requested modules.
+if(wcl_FIND_COMPONENTS)
+  # Specific modules requested by find_package(VTK).
+  set(@CMAKE_PROJECT_NAME@_MODULES_REQUESTED "${@CMAKE_PROJECT_NAME@_FIND_COMPONENTS}")
+endif()
+if(NOT @CMAKE_PROJECT_NAME@_MODULES_REQUESTED)
+  # No specific modules requested.  Use all of them.
+  set(@CMAKE_PROJECT_NAME@_MODULES_REQUESTED "${@CMAKE_PROJECT_NAME@_MODULES_ENABLED}")
+endif()
+message( "@CMAKE_PROJECT_NAME@_MODULES_REQUESTED = ${@CMAKE_PROJECT_NAME@_MODULES_REQUESTED}")
+
+# Load requested modules and their dependencies into variables:
+#  <namespace>_DEFINITIONS  = Preprocessor definitions
+#  <namespace>_LIBRARIES    = Libraries to link
+#  <namespace>_INCLUDE_DIRS = Header search path
+#  <namespace>_LIBRARY_DIRS = Library search path (for outside dependencies)
+#  <namespace>_RUNTIME_LIBRARY_DIRS = Runtime linker search path
+
+my_module_config(@CMAKE_PROJECT_NAME@ ${@CMAKE_PROJECT_NAME@_MODULES_REQUESTED})
+
+
+
+#-----------------------------------------------------------------------------
+
+# VTK global configuration options.
+#SET(VTK_BUILD_SHARED_LIBS "@BUILD_SHARED_LIBS@")
+#SET(VTK_LEGACY_REMOVE "@VTK_LEGACY_REMOVE@")
+#SET(VTK_LEGACY_SILENT "@VTK_LEGACY_SILENT@")
+#SET(VTK_WRAP_PYTHON "@VTK_WRAP_PYTHON@")
+#SET(VTK_WRAP_TCL "@VTK_WRAP_TCL@")
+#SET(VTK_WRAP_JAVA "@VTK_WRAP_JAVA@")
+#SET(VTK_QT_VERSION "@VTK_QT_VERSION@")
+
+# Do not add options or information here that is specific to a
+# particular module.  Instead set <module>_EXPORT_OPTIONS and/or
+# <module>_EXPORT_CODE_BUILD and <module>_EXPORT_CODE_INSTALL
+# at the top of the module CMakeLists.txt file.
