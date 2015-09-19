@@ -11,10 +11,9 @@ other operating systems are currently not supported.
 
 Get JAQT
 --------
-You can download Tano from the official web page
-(http://projects.tano.si) or using Git:
+You can download JAQT using Git:
 
-    $ git clone git://github.com/ntadej/tano.git
+    $ git clone git://github.com/jdmarquez01/jaqt.git
 
 
 Acknowledgements
